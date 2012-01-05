@@ -105,7 +105,7 @@ class ActiveRecordToSimpledb
         elsif RAILS_ENV == "prueba"
           ActiveRecordToSimpledb::Client.create(domain_name, self.attributes)
         else
-          Resque.enqueue(ActiveRecordToSimpledb::JobQueue::Create, self.attributes)
+          Resque.enqueue(ActiveRecordToSimpledb::JobQueue::Create, self.class.name, domain_name , self.id)
         end
       end
 
@@ -123,11 +123,14 @@ class ActiveRecordToSimpledb
   #
   # Private: a module with the resque jos
   #
-  module JobQueue 
+  module JobQueue
     class Create
       @queue = :active_record_to_simple_db_create
-      def self.perform(attributes)
-        ActiveRecordToSimpledb::Client.create(attributes)
+      def self.perform(klass, domain_name, id)
+
+        record = klass.camelize.constantize.find(id)
+        ActiveRecordToSimpledb::Client.create( domain_name , record.attributes)
+
       end
     end
   end
