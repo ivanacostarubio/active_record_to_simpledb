@@ -101,6 +101,8 @@ class ActiveRecordToSimpledb
       #
       def send_object_to_simpledb
         if RAILS_ENV == "test"
+          # we do nothing in the test env because we don't want to polute other people tests
+        elsif RAILS_ENV == "prueba"
           ActiveRecordToSimpledb::Client.create(domain_name, self.attributes)
         else
           Resque.enqueue(ActiveRecordToSimpledb::Resque::Create, self.attributes)

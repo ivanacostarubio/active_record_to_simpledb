@@ -6,18 +6,6 @@ class TicketSale < ActiveRecord::Base
   include ActiveRecordToSimpledb::Callbacks::Create
 end
 
-
-class Rails
-
-  def self.version
-    '2.1.2'
-  end
-
-  def self.root
-    Dir.pwd
-  end
-end
-
 describe ActiveRecordToSimpledb do
 
   context "conection" do
@@ -41,7 +29,14 @@ describe ActiveRecordToSimpledb do
   end
 
   it "uses resque to send the object" do
+  end
 
+  it "does nothing when rails env is test" do
+    RAILS_ENV = "test"
+    attr = {"id" => 4, "event_id" => 123, "title" => "Hello" }
+    TicketSale.create(attr)
+    t = ActiveRecordToSimpledb::Query.find("ticketsale", 4)
+    t[:attributes].should == {}
   end
 
   context "integration" do
