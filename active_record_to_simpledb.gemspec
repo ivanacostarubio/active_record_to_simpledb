@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "active_record_to_simpledb.gemspec",
     "lib/active_record_to_simpledb.rb",
     "spec/active_record_setup.rb",
     "spec/active_record_to_simpledb_spec.rb",
