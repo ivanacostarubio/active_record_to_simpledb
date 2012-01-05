@@ -1,3 +1,7 @@
+require 'right_aws'
+require 'sdb/active_sdb'
+require 'json'
+
 class ActiveRecordToSimpledb
 
   # Public: It connect to aws

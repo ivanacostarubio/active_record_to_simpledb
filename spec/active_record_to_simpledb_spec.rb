@@ -1,10 +1,6 @@
-require 'json'
-require 'right_aws'
-require 'sdb/active_sdb'
 require 'activerecord'
 require 'active_record_setup'
 require 'active_record_to_simpledb'
-
 require 'aws'
 
 class TicketSale < ActiveRecord::Base
