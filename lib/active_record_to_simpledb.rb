@@ -127,7 +127,7 @@ class ActiveRecordToSimpledb
     class Create
       @queue = :active_record_to_simple_db_create
       def self.perform(attributes)
-        ActiveRecordToSimpledb::Client.create(self.attributes)
+        ActiveRecordToSimpledb::Client.create(attributes)
       end
     end
   end
