@@ -1,0 +1,5 @@
+test:
+  adapter: mysql
+  host: localhost
+  username: root
+  database: active_record_to_simpledb
