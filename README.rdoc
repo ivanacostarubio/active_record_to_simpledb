@@ -1,16 +1,50 @@
 = active_record_to_simpledb
 
-Description goes here.
+Imagine you have an Active Record model like:
+
+  class TicketSale < ActiveRecord::Base
+  end
+
+You can just include each of the callbacks depending on your needs:
+
+
+  class TicketSale < ActiveRecord::Base
+    include ActiveRecordToSimpledb::Callbacks::Create
+  end
+
+
+NOT YET DONE, but IT'll IN THE FUTURE: 
+
+
+  class TicketSale < ActiveRecord::Base
+    include ActiveRecordToSimpledb::Callbacks::Update
+    include ActiveRecordToSimpledb::Callbacks::Delete
+  end
+
+
+
+== AWS Configuration: 
+
+We assume you have a file in /config/aws.yml that looks like: 
+
+  test:
+    access_key_id: ''
+    secret_access_key: ''
+
+  production:
+    access_key_id: ''
+    secret_access_key: ''
+
+  development:
+    access_key_id: ''
+    secret_access_key: ''
+
+
 
 == Contributing to active_record_to_simpledb
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+* Fork, Test, Pull Request
+
 
 == Copyright
 
