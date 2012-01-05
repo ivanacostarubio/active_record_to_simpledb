@@ -12,6 +12,17 @@ class TicketSale < ActiveRecord::Base
 end
 
 
+class Rails
+
+  def self.version
+    '2.1.2'
+  end
+
+  def self.root
+    Dir.pwd
+  end
+end
+
 describe ActiveRecordToSimpledb do
 
   context "conection" do
