@@ -89,6 +89,61 @@ class ActiveRecordToSimpledb
     end
   end
 
+  module Destroy
+    #
+    # It destroys records
+    #
+    # string - domain to delete from
+    # integer - number if of the record to delete
+    #
+    # Example:
+    #
+    # ActiveRecordToSimpledb::Destroy.by_key("ticketsale",4)
+    #
+    def self.by_key(domain,id)
+      ActiveRecordToSimpledb.aws_connect.delete_attributes(domain, id.to_s)
+    end
+  end
+
+
+  module Recover
+
+    #
+    # It recovers single records from simpledb
+    #
+    # string - domain to recover the record from
+    # integer - id of the record to revover
+    #
+    # Example:
+    #
+    # ActiveRecordToSimpledb::Recover.from(TicketSale, ticket.id)
+    #
+    def self.from(klass, id)
+      simple_record = ActiveRecordToSimpledb::Query.find("ticketsale", id)
+      self.create_from_attributes(klass, simple_record[:attributes])
+    end
+
+    def self.from_query(klass, query)
+      records  = ActiveRecordToSimpledb::Query.find_by_sql( query )
+      records[:items].each do |item|
+        self.create_from_attributes(klass, item)
+      end
+    end
+
+    def self.create_from_attributes(klass,record)
+
+      ticket = klass.create
+      record.first[1].each do |attr|
+        unless attr[0] == "id"
+          ticket.send(attr[0] +"=", attr[1].first )
+        end
+        ticket.save
+      end
+    end
+
+
+  end
+
   module Callbacks
 
     module Create
